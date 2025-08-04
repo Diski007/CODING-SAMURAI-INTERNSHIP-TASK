@@ -1,80 +1,101 @@
 import tkinter as tk
 
-calculation = ""
+# Global expression string
+expression = ""
 
-def add_calculator(symbol):
-    global calculation
-    calculation += str(symbol)
-    text_screen.delete(1.0, "end")
-    text_screen.insert(1.0, calculation)
-    
-    
-def evaluate_calculation():
-    global calculation
+# Function to handle button press
+def press(symbol):
+    global expression
+    expression += str(symbol)
+    screen.set(expression)
+
+# Function to evaluate the expression
+def calculate():
+    global expression
     try:
-        calculation = str(eval(calculation))
-        text_screen.delete(1.0, "end")
-        text_screen.insert(1.0, calculation)
-         
+        result = str(eval(expression))
+        screen.set(result)
+        expression = result  # Allow chaining calculations
     except:
-        clearfield()
-        text_screen.insert(1.0, "Error") 
-        
-def delete_last_character():
-    global calculation
-    calculation = calculation[:-1]
-    text_screen.delete(1.0, "end")
-    text_screen.insert(1.0, calculation)
+        screen.set("Error")
+        expression = ""
 
-def clearfield():
-    global calculation
-    calculation = ""
-    text_screen.delete(1.0, "end")
-    pass
+# Function to clear the screen
+def clear():
+    global expression
+    expression = ""
+    screen.set("")
 
+# Function to delete the last character
+def delete_last():
+    global expression
+    expression = expression[:-1]
+    screen.set(expression)
+
+# Set up GUI window
 root = tk.Tk()
+root.title("Simple Calculator")
 root.geometry("300x400")
-root.title("Calculator by Vincent")
-root.iconbitmap(r"C:\Users\DELL\Desktop\Python_test\Pyth__samurai_train\Project1_Simple_Calculator\calculator.ico")
-text_screen = tk.Text(root, height=2, width=25, font=("Arial", 16))
-text_screen.grid(columnspan=5)
 
-btn_1 = tk.Button(root, text="1", command=lambda: add_calculator(1), height=2, width=5, font=("Arial", 16))
-btn_1.grid(row=2, column=1)
-btn_2 = tk.Button(root, text="2", command=lambda: add_calculator(2), height=2, width=5, font=("Arial", 16))
-btn_2.grid(row=2, column=2)
-btn_3 = tk.Button(root, text="3", command=lambda: add_calculator(3), height=2, width=5, font=("Arial", 16))
-btn_3.grid(row=2, column=3)
-btn_4 = tk.Button(root, text="4", command=lambda: add_calculator(4), height=2, width=5, font=("Arial", 16))
-btn_4.grid(row=3, column=1)
-btn_5 = tk.Button(root, text="5", command=lambda: add_calculator(5), height=2, width=5, font=("Arial", 16))
-btn_5.grid(row=3, column=2)
-btn_6 = tk.Button(root, text="6", command=lambda: add_calculator(6), height=2, width=5, font=("Arial", 16))
-btn_6.grid(row=3, column=3)
-btn_7 = tk.Button(root, text="7", command=lambda: add_calculator(7), height=2, width=5, font=("Arial", 16))
-btn_7.grid(row=4, column=1)
-btn_8 = tk.Button(root, text="8", command=lambda: add_calculator(8), height=2, width=5, font=("Arial", 16))
-btn_8.grid(row=4, column=2)
-btn_9 = tk.Button(root, text="9", command=lambda: add_calculator(9), height=2, width=5, font=("Arial", 16))
-btn_9.grid(row=4, column=3)
-btn_0 = tk.Button(root, text="0", command=lambda: add_calculator(0), height=2, width=5, font=("Arial", 16))
-btn_0.grid(row=5, column=1)
-btn_plus = tk.Button(root, text="+", command=lambda: add_calculator("+"), height=2, width=5, font=("Arial", 16))
-btn_plus.grid(row=2, column=4)
-btn_minus = tk.Button(root, text="-", command=lambda: add_calculator("-"), height=2, width=5, font=("Arial", 16))
-btn_minus.grid(row=3, column=4)
-btn_multiply = tk.Button(root, text="*", command=lambda: add_calculator("*"), height=2, width=5, font=("Arial", 16))
-btn_multiply.grid(row=4, column=4)
-btn_divide = tk.Button(root, text="/", command=lambda: add_calculator("/"), height=2, width=5, font=("Arial", 16))
-btn_divide.grid(row=5, column=4)
-btn_equal = tk.Button(root, text="=", command=evaluate_calculation, height=2, width=15, font=("Arial", 16))
-btn_equal.grid(row=6, columnspan=5)
-btn_clear = tk.Button(root, text="C", command=clearfield, height=2, width=5, font=("Arial", 16))
-btn_clear.grid(row=5, column=2)
-btn_percentage = tk.Button(root, text="%", command=lambda: add_calculator("%"), height=2, width=5, font=("Arial", 16))
-btn_percentage.grid(row=6, column=4)
-btn_delete = tk.Button(root, text="DEL", command=delete_last_character, height=2, width=5, font=("Arial", 16))
-btn_delete.grid(row=5, column=3)
+# Display field
+screen = tk.StringVar()
+display = tk.Entry(root, textvariable=screen, font=("Arial", 20), bd=10, insertwidth=2,
+                   width=14, borderwidth=4, justify='right')
+display.grid(row=0, column=0, columnspan=4)
 
+# --- Number Buttons ---
+btn_1 = tk.Button(root, text="1", command=lambda: press("1"), height=2, width=5, font=("Arial", 16))
+btn_1.grid(row=3, column=0)
 
+btn_2 = tk.Button(root, text="2", command=lambda: press("2"), height=2, width=5, font=("Arial", 16))
+btn_2.grid(row=3, column=1)
+
+btn_3 = tk.Button(root, text="3", command=lambda: press("3"), height=2, width=5, font=("Arial", 16))
+btn_3.grid(row=3, column=2)
+
+btn_4 = tk.Button(root, text="4", command=lambda: press("4"), height=2, width=5, font=("Arial", 16))
+btn_4.grid(row=2, column=0)
+
+btn_5 = tk.Button(root, text="5", command=lambda: press("5"), height=2, width=5, font=("Arial", 16))
+btn_5.grid(row=2, column=1)
+
+btn_6 = tk.Button(root, text="6", command=lambda: press("6"), height=2, width=5, font=("Arial", 16))
+btn_6.grid(row=2, column=2)
+
+btn_7 = tk.Button(root, text="7", command=lambda: press("7"), height=2, width=5, font=("Arial", 16))
+btn_7.grid(row=1, column=0)
+
+btn_8 = tk.Button(root, text="8", command=lambda: press("8"), height=2, width=5, font=("Arial", 16))
+btn_8.grid(row=1, column=1)
+
+btn_9 = tk.Button(root, text="9", command=lambda: press("9"), height=2, width=5, font=("Arial", 16))
+btn_9.grid(row=1, column=2)
+
+btn_0 = tk.Button(root, text="0", command=lambda: press("0"), height=2, width=5, font=("Arial", 16))
+btn_0.grid(row=4, column=1)
+
+# --- Operator Buttons ---
+btn_add = tk.Button(root, text="+", command=lambda: press("+"), height=2, width=5, font=("Arial", 16))
+btn_add.grid(row=1, column=3)
+
+btn_sub = tk.Button(root, text="-", command=lambda: press("-"), height=2, width=5, font=("Arial", 16))
+btn_sub.grid(row=2, column=3)
+
+btn_mul = tk.Button(root, text="*", command=lambda: press("*"), height=2, width=5, font=("Arial", 16))
+btn_mul.grid(row=3, column=3)
+
+btn_div = tk.Button(root, text="/", command=lambda: press("/"), height=2, width=5, font=("Arial", 16))
+btn_div.grid(row=4, column=3)
+
+# --- Control Buttons ---
+btn_clear = tk.Button(root, text="C", command=clear, height=2, width=5, font=("Arial", 16))
+btn_clear.grid(row=4, column=0)
+
+btn_equal = tk.Button(root, text="=", command=calculate, height=2, width=5, font=("Arial", 16))
+btn_equal.grid(row=4, column=2)
+
+btn_del = tk.Button(root, text="DEL", command=delete_last, height=2, width=5, font=("Arial", 16))
+btn_del.grid(row=5, column=3)
+
+# Optional: Add more rows if needed
 root.mainloop()
