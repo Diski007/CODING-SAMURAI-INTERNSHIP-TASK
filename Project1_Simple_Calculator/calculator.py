@@ -36,7 +36,6 @@ def delete_last():
 root = tk.Tk()
 root.title("Calculator by Vincent")
 root.geometry("300x400")
-root.iconbitmap(r"C:\Users\DELL\Desktop\Python_test\Pyth__samurai_train\Project1_Simple_Calculator\calculator.ico")
 
 
 # Display field
