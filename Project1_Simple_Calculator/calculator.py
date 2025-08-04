@@ -34,14 +34,17 @@ def delete_last():
 
 # Set up GUI window
 root = tk.Tk()
-root.title("Simple Calculator")
+root.title("Calculator by Vincent")
 root.geometry("300x400")
+root.iconbitmap(r"C:\Users\DELL\Desktop\Python_test\Pyth__samurai_train\Project1_Simple_Calculator\calculator.ico")
+
 
 # Display field
 screen = tk.StringVar()
 display = tk.Entry(root, textvariable=screen, font=("Arial", 20), bd=10, insertwidth=2,
                    width=14, borderwidth=4, justify='right')
 display.grid(row=0, column=0, columnspan=4)
+
 
 # --- Number Buttons ---
 btn_1 = tk.Button(root, text="1", command=lambda: press("1"), height=2, width=5, font=("Arial", 16))
