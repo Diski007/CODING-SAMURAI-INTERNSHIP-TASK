@@ -1,0 +1,26 @@
+# Ignore all .pyc files
+*.pyc
+
+# Ignore a specific file
+secret_config.py
+
+# Ignore a specific folder
+__pycache__/
+
+# Ignore a folder and everything in it
+env/
+venv/
+
+# Ignore all .log files
+*.log
+
+# Ignore VS Code settings
+.vscode/
+
+# Ignore database files
+*.db
+
+# Ignore json files
+*.json
+
+
