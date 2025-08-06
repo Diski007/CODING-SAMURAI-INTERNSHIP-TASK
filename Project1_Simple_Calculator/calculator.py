@@ -12,13 +12,19 @@ def press(symbol):
 # Function to evaluate the expression
 def calculate():
     global expression
-    try:
-        result = str(eval(expression))
-        screen.set(result)
-        expression = result  # Allow chaining calculations
-    except:
-        screen.set("Error")
+    if not expression:
+        screen.set("Empty")
+    elif expression[-1] in "+-*/":
+        screen.set("Invalid")
         expression = ""
+    else:
+        try:
+            result = str(eval(expression))
+            screen.set(result)
+            expression = result  # Enable chaining
+        except:
+            screen.set("Error")
+            expression = ""
 
 # Function to clear the screen
 def clear():
@@ -29,21 +35,22 @@ def clear():
 # Function to delete the last character
 def delete_last():
     global expression
-    expression = expression[:-1]
-    screen.set(expression)
+    if expression:
+        expression = expression[:-1]
+        screen.set(expression)
+    else:
+        screen.set("")
 
 # Set up GUI window
 root = tk.Tk()
-root.title("Calculator by Vincent")
+root.title("Simple Calculator")
 root.geometry("300x400")
-
 
 # Display field
 screen = tk.StringVar()
-display = tk.Entry(root, textvariable=screen, font=("Arial", 20), bd=10, insertwidth=2,
-                   width=14, borderwidth=4, justify='right')
-display.grid(row=0, column=0, columnspan=4)
-
+display = tk.Entry(root, textvariable=screen, font=("Arial", 20),
+                   width=18, justify='right')
+display.grid(columnspan=4)
 
 # --- Number Buttons ---
 btn_1 = tk.Button(root, text="1", command=lambda: press("1"), height=2, width=5, font=("Arial", 16))
@@ -99,5 +106,5 @@ btn_equal.grid(row=4, column=2)
 btn_del = tk.Button(root, text="DEL", command=delete_last, height=2, width=5, font=("Arial", 16))
 btn_del.grid(row=5, column=3)
 
-# Optional: Add more rows if needed
+# Start the GUI
 root.mainloop()
