@@ -43,13 +43,12 @@ def delete_last():
 
 # Set up GUI window
 root = tk.Tk()
-root.title("Simple Calculator")
+root.title("Vincent Calculator")
 root.geometry("300x400")
 
 # Display field
 screen = tk.StringVar()
-display = tk.Entry(root, textvariable=screen, font=("Arial", 20),
-                   width=18, justify='right')
+display = tk.Entry(root, textvariable=screen, font=("Arial", 20), width=18, justify='right')
 display.grid(columnspan=4)
 
 # --- Number Buttons ---
